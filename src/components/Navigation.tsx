@@ -63,8 +63,8 @@ const Navigation = () => {
               <Button variant="ghost" size="sm" onClick={openSignIn}>
                 Sign In
               </Button>
-              <Button size="sm" className="bg-gradient-primary hover:shadow-glow transition-all duration-300" onClick={openSignUp}>
-                Get Started
+              <Button variant="default" size="sm" onClick={openSignUp}>
+                Sign Up
               </Button>
             </>
           )}

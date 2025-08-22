@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,105 +8,45 @@
 
 @layer base {
   :root {
-    /* Light & Professional Color Palette */
-    --background: 210 20% 98%; /* #F9FAFB - Very light, soft gray/off-white */
-    --foreground: 220 26% 18%; /* #1F2937 - Dark charcoal blue for excellent readability */
-
-    /* Module/Card/Dropdown Background */
-    --card: 0 0% 100%; /* #FFFFFF - Pure white for clean, crisp look */
-    --card-foreground: 220 26% 18%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 26% 18%;
-
-    /* Primary Accent - Vibrant emerald green */
-    --primary: 158 64% 52%; /* #10B981 */
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 158 64% 62%;
-
-    /* Secondary Accent - Rich, deep violet */
-    --secondary: 262 83% 58%; /* #8B5CF6 */
-    --secondary-foreground: 0 0% 100%;
-
-    /* Borders & Dividers */
-    --border: 220 13% 91%; /* #E5E7EB - Light gray for subtle separation */
-    --input: 220 13% 91%;
-
-    /* Secondary Text */
-    --muted: 220 14% 96%; /* Light muted background */
-    --muted-foreground: 220 9% 46%; /* #6B7280 - Softer gray for helper text */
-
-    /* Accent colors */
-    --accent: 158 64% 52%;
-    --accent-foreground: 0 0% 100%;
-
-    /* Status colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
+    /* "Light-on-Dark" Color Palette from Spec */
+    --background: #111827;
+    --foreground: #F9FAFB;
     
-    --ring: 158 64% 52%;
+    --card: #1F2937;
+    --card-foreground: #F9FAFB;
 
-    /* Dark section background (footer) */
-    --dark-section: 217 33% 9%; /* #111827 - Deep, near-black blue */
-    --dark-section-foreground: 210 20% 98%; /* #F9FAFB */
+    --popover: #1F2937;
+    --popover-foreground: #F9FAFB;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(158 64% 52%), hsl(262 83% 58%));
-    --gradient-subtle: linear-gradient(180deg, hsl(210 20% 98%), hsl(220 14% 96%));
-    --gradient-hero: linear-gradient(135deg, hsl(158 64% 52% / 0.1), hsl(262 83% 58% / 0.1));
+    --primary: #34D399;
+    --primary-foreground: #111827;
 
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(158 64% 52% / 0.3);
-    --shadow-glow: 0 0 40px hsl(158 64% 62% / 0.4);
+    --secondary: #A78BFA;
+    --secondary-foreground: #111827;
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --muted: #1F2937;
+    --muted-foreground: #9CA3AF;
 
-    --radius: 0.75rem;
+    --accent: #34D399;
+    --accent-foreground: #111827;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive: #ef4444; /* Standard red */
+    --destructive-foreground: #F9FAFB;
+
+    --border: #374151;
+    --input: #374151;
+    --ring: #34D399;
+
+    --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+  /* The .dark class is no longer needed as dark is the default theme. */
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border;
   }
@@ -118,15 +60,4 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
-  /* Dark sections styling */
-  .dark-section {
-    background-color: hsl(var(--dark-section));
-    color: hsl(var(--dark-section-foreground));
-  }
-}
-
-@layer utilities {
-  .text-dark-section-foreground {
-    color: hsl(var(--dark-section-foreground));
-  }
 }

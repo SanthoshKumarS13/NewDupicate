@@ -41,19 +41,23 @@ export const ImagePromptBuilder: React.FC = () => {
   const [generatedPrompt, setGeneratedPrompt] = useState("");
 
   const generatePrompt = async () => {
+    // Step 1: Check if the user is authenticated. If not, open the sign-up modal.
     if (!isAuthenticated) {
       setAuthMode('signup');
       setAuthModalOpen(true);
+      toast.error("Please sign up or sign in to generate a prompt.");
       return;
     }
 
+    // Step 2: Check the user's remaining prompts and decrement the limit.
+    // The usePromptLimits hook handles the RPC call and error notifications.
     const canGenerate = await checkAndDecrementLimit('image');
     if (!canGenerate) {
-      return;
+      return; // Stop if the user has no prompts left or an error occurred.
     }
 
+    // Step 3: If checks pass, proceed with generating the prompt string.
     const promptParts = [];
-    
     if (coreIdea) promptParts.push(coreIdea);
     if (primarySubjects.length > 0) promptParts.push(`featuring ${primarySubjects.join(', ')}`);
     if (actionPose.length > 0) promptParts.push(`${actionPose.join(', ')}`);

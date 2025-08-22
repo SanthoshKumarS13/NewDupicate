@@ -1,92 +1,63 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Clock, User } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { Helmet } from 'react-helmet-async';
+
+const guides = [
+  {
+    title: "A Beginner's Guide to Writing Your First AI Image Prompt",
+    excerpt: "Learn the core formula for writing effective AI image prompts to get stunning results.",
+    slug: "beginner-ai-image-prompt",
+  },
+  {
+    title: "5 Easy Tricks to Get Cinematic Shots from AI Video Generators",
+    excerpt: "Discover five specific, actionable tips to create professional-looking videos with AI.",
+    slug: "cinematic-ai-video-tricks",
+  },
+  {
+    title: "How to Create Your First AI Song with Suno: A Step-by-Step Guide",
+    excerpt: "A simple walkthrough to get started with AI music generation using structured prompts.",
+    slug: "first-ai-song-suno-guide",
+  },
+  {
+    title: "What is an AI App Builder? A Simple Explanation",
+    excerpt: "Understand how AI app builders work and learn to create better prompts.",
+    slug: "what-is-ai-app-builder",
+  },
+  {
+    title: "The Top 5 Free AI Image Generators You Should Try in 2025",
+    excerpt: "A review of the best free AI image generation tools available today.",
+    slug: "top-5-free-ai-image-generators-2025",
+  }
+];
 
 const GuidesPage = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: "A Beginner's Guide to Writing Your First AI Image Prompt",
-      excerpt: "Learn the basic formula for writing effective AI image prompts to get stunning results from tools like Midjourney.",
-      readTime: "5 min read",
-      author: "PromptCraft Team",
-      category: "Image Generation",
-      slug: "beginner-ai-image-prompt",
-      content: `Start by explaining the core formula: [SUBJECT] + [ACTION/POSE] + [STYLE] + [LIGHTING]. Use a simple example like "a cat." Show how adding "a calico cat" is better. Then add "a calico cat sleeping in a sunbeam." Then add "a calico cat sleeping in a sunbeam, oil painting style." Finally, add "a calico cat sleeping in a sunbeam, oil painting style, warm lighting." Conclude by encouraging users to try these steps in the PromptCraft Image Builder.`,
-      keywords: "beginner AI image prompt, how to write prompts, Midjourney prompt tutorial"
-    },
-    {
-      id: 2,
-      title: "5 Easy Tricks to Get Cinematic Shots from AI Video Generators",
-      excerpt: "Discover five specific, actionable tips to create professional-looking videos with AI tools like Sora and Veo.",
-      readTime: "7 min read",
-      author: "PromptCraft Team",
-      category: "Video Generation",
-      slug: "cinematic-ai-video-tricks",
-      content: `List five specific, actionable tips. 1. Describe Camera Movement: Explain the difference between a "slow pan" and a "rapid tracking shot." 2. Specify Lighting: Contrast "golden hour" with "dramatic contrast." 3. Choose a Lens: Explain how a "wide angle shot" differs from a "telephoto shot." 4. Set the Mood: Use emotional keywords like "melancholic" or "triumphant." 5. Control the Colors: Mention color palettes like "vibrant and saturated" vs. "muted earth tones." End with a CTA: "Ready to direct your own movie? Use these techniques in our Advanced Video Prompt Builder."`,
-      keywords: "cinematic AI video, Sora prompts, Veo prompt guide"
-    },
-    {
-      id: 3,
-      title: "How to Create Your First AI Song with Suno: A Step-by-Step Guide",
-      excerpt: "A simple walkthrough to get started with AI music generation using structured prompts and tags.",
-      readTime: "6 min read",
-      author: "PromptCraft Team",
-      category: "Music Generation",
-      slug: "first-ai-song-suno-guide",
-      content: `Provide a simple walkthrough. Step 1: Write a simple chorus. Step 2: Use structural tags like [Chorus] and [Verse]. Step 3: Choose a genre like "Lo-fi Hip Hop." Step 4: Add a mood like "peaceful." Step 5: Specify an instrument like "electric piano." Conclude: "It's that easy to get started. Create your first track today with the PromptCraft Music Builder."`,
-      keywords: "Suno AI prompts, AI music tutorial, how to use Suno"
-    },
-    {
-      id: 4,
-      title: "What is an AI App Builder? A Simple Explanation",
-      excerpt: "Understand how AI app builders work and learn to create better prompts for tools like Replit AI.",
-      readTime: "4 min read",
-      author: "PromptCraft Team",
-      category: "App Building",
-      slug: "what-is-ai-app-builder",
-      content: `Explain the concept in simple terms: "Imagine describing a website to a developer, but instead of a person, it's an AI that builds it for you." Show a simple "before" prompt (e.g., "make a pricing table") and an "after" prompt generated by PromptCraft that includes details about brand personality and content. This shows the value of a structured prompt. Link to the App Builder tool.`,
-      keywords: "AI app builder, what is Replit AI, no-code AI tools"
-    },
-    {
-      id: 5,
-      title: "The Top 5 Free AI Image Generators You Should Try in 2025",
-      excerpt: "A comprehensive review of the best free AI image generation tools available today.",
-      readTime: "8 min read",
-      author: "PromptCraft Team",
-      category: "Image Generation",
-      slug: "top-5-free-ai-image-generators-2025",
-      content: `Briefly review the top 5 models supported by PromptCraft (e.g., Midjourney, DALL-E 3, Stable Diffusion, Ideogram, Leonardo AI). For each, write one sentence on its key strength (e.g., "Midjourney is renowned for its artistic and stylized outputs."). Hyperlink the name of each model directly to the corresponding tool page on your site.`,
-      keywords: "free AI image generator, best AI art tools, Midjourney vs Stable Diffusion"
-    }
-  ];
+  const guidesSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "PromptCraft Guides & Blog",
+    "description": "Your ultimate resource for mastering generative AI. Find expert guides, tutorials, and tips for writing better prompts.",
+    "url": "https://promptcraft.ai/guides"
+  };
 
   return (
     <>
-      <head>
+      <Helmet>
         <title>PromptCraft Guides & Blog | Master AI Prompt Engineering</title>
         <meta name="description" content="Your ultimate resource for mastering generative AI. Find expert guides, tutorials, and tips for writing better prompts for Midjourney, Sora, Suno, and more." />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "PromptCraft Guides & Blog",
-            "description": "Your ultimate resource for mastering generative AI. Find expert guides, tutorials, and tips for writing better prompts.",
-            "url": "https://promptcraft.ai/guides"
-          })}
-        </script>
-      </head>
+        <script type="application/ld+json">{JSON.stringify(guidesSchema)}</script>
+      </Helmet>
       
-      <div className="min-h-screen bg-gradient-subtle">
+      <div className="flex flex-col min-h-screen bg-background">
         <Navigation />
         
-        <div className="container mx-auto px-4 py-16">
+        <main className="flex-1 container py-16">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               PromptCraft Guides: Master the Art of AI Creation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -95,43 +66,30 @@ const GuidesPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
-              <Card key={post.id} className="group hover:shadow-elegant transition-all duration-300 border bg-card backdrop-blur">
+            {guides.map((post) => (
+              <Card key={post.slug} className="group transition-all duration-300 border bg-card hover:border-primary flex flex-col">
                 <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
-                      {post.category}
-                    </span>
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Clock className="w-3 h-3 mr-1" />
-                      {post.readTime}
-                    </div>
-                  </div>
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                  <CardTitle className="text-xl font-heading group-hover:text-primary transition-colors">
                     {post.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                   <p className="text-muted-foreground mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <User className="w-3 h-3 mr-1" />
-                      {post.author}
-                    </div>
-                    <Link to={`/guides/${post.slug}`}>
-                      <Button variant="ghost" size="sm" className="group-hover:text-primary transition-colors">
-                        Read More
-                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </div>
                 </CardContent>
+                <div className="p-6 pt-0">
+                  <Link to={`/guides/${post.slug}`}>
+                    <Button variant="ghost" className="group-hover:text-primary transition-colors p-0 h-auto">
+                      Read More
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </div>
               </Card>
             ))}
           </div>
-        </div>
+        </main>
         
         <Footer />
       </div>
