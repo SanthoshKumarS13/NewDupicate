@@ -39,19 +39,22 @@ export const VideoPromptBuilder: React.FC = () => {
   const [generatedPrompt, setGeneratedPrompt] = useState("");
 
   const generatePrompt = async () => {
+    // Step 1: Check if the user is authenticated. If not, open the sign-up modal.
     if (!isAuthenticated) {
       setAuthMode('signup');
       setAuthModalOpen(true);
+      toast.error("Please sign up or sign in to generate a prompt.");
       return;
     }
 
+    // Step 2: Check the user's remaining prompts and decrement the limit.
     const canGenerate = await checkAndDecrementLimit('video');
     if (!canGenerate) {
-      return;
+      return; // Stop if the user has no prompts left or an error occurred.
     }
 
+    // Step 3: If checks pass, proceed with generating the prompt string.
     const promptParts = [];
-    
     if (coreScene) promptParts.push(coreScene);
     if (keySubjects) promptParts.push(`featuring ${keySubjects}`);
     if (coreAction) promptParts.push(coreAction);

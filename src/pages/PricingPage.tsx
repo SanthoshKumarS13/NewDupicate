@@ -1,84 +1,68 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { Helmet } from 'react-helmet-async';
+import { AuthModal } from '@/components/auth/AuthModal';
 
 const PricingPage = () => {
-  const limits = [
-    {
-      tool: "Image Prompt Generator",
-      limit: "10 prompts per day",
-      icon: "🎨"
-    },
-    {
-      tool: "Video Prompt Generator", 
-      limit: "4 prompts per day",
-      icon: "🎬"
-    },
-    {
-      tool: "Music Prompt Generator",
-      limit: "5 prompts per day", 
-      icon: "🎵"
-    },
-    {
-      tool: "App Builder Prompt",
-      limit: "3 prompts per day",
-      icon: "📱"
-    }
-  ];
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signup');
+
+  const openSignUpModal = () => {
+    setAuthMode('signup');
+    setAuthModalOpen(true);
+  };
 
   return (
     <>
-      <head>
+      <Helmet>
         <title>Pricing | Free to Use | PromptCraft</title>
         <meta name="description" content="PromptCraft is free to use. Learn about our generous daily limits for our suite of AI prompt generators for image, video, music, and app building." />
-      </head>
+      </Helmet>
+
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        mode={authMode}
+        onModeChange={setAuthMode}
+      />
       
-      <div className="min-h-screen bg-gradient-subtle">
+      <div className="flex flex-col min-h-screen bg-background">
         <Navigation />
         
-        <div className="container mx-auto px-4 py-16">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <main className="flex-1 container py-16">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
               Simple, Transparent, and Free
             </h1>
             
-            <div className="bg-card rounded-lg p-8 md:p-12 mb-12 shadow-sm border">
-              <p className="text-lg leading-relaxed mb-8">
+            <div className="prose prose-invert prose-lg max-w-none mx-auto text-muted-foreground">
+              <p>
                 PromptCraft is committed to making powerful creative tools accessible to everyone. Our entire suite of prompt builders is free to use, every day. To ensure fair access for everyone, we have generous daily limits on our generators.
               </p>
               
-              <h2 className="text-2xl font-bold mb-8 text-primary">Your Daily Free Limits:</h2>
+              <h3 className="text-2xl font-heading font-bold text-foreground mt-12 mb-4">Your Daily Free Limits:</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {limits.map((item, index) => (
-                  <Card key={index} className="bg-muted/30 border-primary/20">
-                    <CardContent className="p-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="text-3xl">{item.icon}</div>
-                        <div className="text-left">
-                          <h3 className="font-semibold text-lg">{item.tool}</h3>
-                          <p className="text-primary font-medium">{item.limit}</p>
-                        </div>
-                        <CheckCircle className="w-6 h-6 text-primary ml-auto" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <ul className="list-disc list-inside text-left max-w-md mx-auto mb-8">
+                <li>Image Prompt Generator: <span className="font-bold text-primary">10 prompts per day</span></li>
+                <li>Video Prompt Generator: <span className="font-bold text-primary">4 prompts per day</span></li>
+                <li>Music Prompt Generator: <span className="font-bold text-primary">5 prompts per day</span></li>
+                <li>App Builder Prompt: <span className="font-bold text-primary">3 prompts per day</span></li>
+              </ul>
               
-              <p className="text-lg leading-relaxed mb-8">
-                Simply create a free account to start crafting. Your limits reset every 24 hours.
+              <p>
+                Simply{' '}
+                <button
+                  onClick={openSignUpModal}
+                  className="font-bold text-primary hover:underline"
+                >
+                  create a free account
+                </button>
+                {' '}to start crafting. Your limits reset every 24 hours.
               </p>
-              
-              <Button size="lg" variant="hero" className="text-lg px-8 py-4">
-                Create Free Account
-              </Button>
             </div>
           </div>
-        </div>
+        </main>
         
         <Footer />
       </div>

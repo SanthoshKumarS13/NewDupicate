@@ -37,33 +37,52 @@ export const AppBuilderPrompt: React.FC = () => {
   const [generatedPrompt, setGeneratedPrompt] = useState("");
 
   const generatePrompt = async () => {
+    // Step 1: Check if the user is authenticated. If not, open the sign-up modal.
     if (!isAuthenticated) {
       setAuthMode('signup');
       setAuthModalOpen(true);
+      toast.error("Please sign up or sign in to generate a prompt.");
       return;
     }
 
+    // Step 2: Check the user's remaining prompts and decrement the limit.
     const canGenerate = await checkAndDecrementLimit('app');
     if (!canGenerate) {
-      return;
+      return; // Stop if the user has no prompts left or an error occurred.
     }
 
-    const promptParts = [];
-    
-    if (projectGoal) promptParts.push(`Build: ${projectGoal}`);
-    if (projectName) promptParts.push(`Project Name: ${projectName}`);
-    if (targetAudience) promptParts.push(`Target Audience: ${targetAudience}`);
-    if (brandPersonality) promptParts.push(`Brand Style: ${brandPersonality}`);
-    if (headline) promptParts.push(`Main Headline: "${headline}"`);
-    if (bodyText) promptParts.push(`Description: ${bodyText}`);
-    if (ctaButtonText) promptParts.push(`Call-to-Action: "${ctaButtonText}"`);
-    if (features.length > 0) promptParts.push(`Key Features: ${features.join(', ')}`);
-    promptParts.push(`Primary Color: ${primaryColor}, Secondary Color: ${secondaryColor}`);
-    if (headingFont) promptParts.push(`Heading Font: ${headingFont}`);
-    if (bodyFont) promptParts.push(`Body Font: ${bodyFont}`);
+    // Step 3: If checks pass, proceed with generating the structured Markdown prompt.
+    let prompt = `**Task:**\n${projectGoal}\n\n`;
 
-    const prompt = promptParts.join('. ');
-    setGeneratedPrompt(prompt);
+    if (projectName || targetAudience || brandPersonality) {
+      prompt += `**Project Foundation:**\n`;
+      if (projectName) prompt += `*   **Project Name:** ${projectName}\n`;
+      if (targetAudience) prompt += `*   **Target Audience:** ${targetAudience}\n`;
+      if (brandPersonality) prompt += `*   **Brand Personality:** ${brandPersonality}\n`;
+      prompt += `\n`;
+    }
+
+    prompt += `**Design System:**\n`;
+    prompt += `*   **Primary Color:** ${primaryColor}\n`;
+    prompt += `*   **Secondary Color:** ${secondaryColor}\n`;
+    if (headingFont) prompt += `*   **Heading Font:** ${headingFont}\n`;
+    if (bodyFont) prompt += `*   **Body Font:** ${bodyFont}\n`;
+    prompt += `\n`;
+
+    if (headline || bodyText || ctaButtonText || features.length > 0) {
+      prompt += `**Content & Components:**\n`;
+      if (headline) prompt += `*   **Headline:** "${headline}"\n`;
+      if (bodyText) prompt += `*   **Body Text:** "${bodyText}"\n`;
+      if (ctaButtonText) prompt += `*   **Call-to-Action Text:** "${ctaButtonText}"\n`;
+      if (features.length > 0) {
+        prompt += `*   **Features/Items List:**\n`;
+        features.forEach(feature => {
+          prompt += `    *   ${feature}\n`;
+        });
+      }
+    }
+
+    setGeneratedPrompt(prompt.trim());
   };
 
   const handleCopy = () => {

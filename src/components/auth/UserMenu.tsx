@@ -59,13 +59,11 @@ export const UserMenu: React.FC = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <User className="mr-2 h-4 w-4" />
-          <span>My Account</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+        <DropdownMenuItem asChild>
+          <Link to="/account">
+            <User className="mr-2 h-4 w-4" />
+            <span>My Account</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} disabled={loading}>

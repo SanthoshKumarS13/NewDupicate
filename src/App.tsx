@@ -11,6 +11,10 @@ import { MusicPromptBuilder } from "./pages/tools/MusicPromptBuilder";
 import { AppBuilderPrompt } from "./pages/tools/AppBuilderPrompt";
 import GuidesPage from "./pages/GuidesPage";
 import BeginnerAiImagePrompt from "./pages/guides/BeginnerAiImagePrompt";
+import CinematicAiVideoTricks from "./pages/guides/CinematicAiVideoTricks";
+import FirstAiSongSunoGuide from "./pages/guides/FirstAiSongSunoGuide";
+import WhatIsAiAppBuilder from "./pages/guides/WhatIsAiAppBuilder";
+import Top5FreeAiImageGenerators2025 from "./pages/guides/Top5FreeAiImageGenerators2025";
 import AboutPage from "./pages/AboutPage";
 import PricingPage from "./pages/PricingPage";
 import ContactPage from "./pages/ContactPage";
@@ -35,11 +39,16 @@ const App = () => (
             <Route path="/tools/app-builder" element={<AppBuilderPrompt />} />
             <Route path="/guides" element={<GuidesPage />} />
             <Route path="/guides/beginner-ai-image-prompt" element={<BeginnerAiImagePrompt />} />
+            <Route path="/guides/cinematic-ai-video-tricks" element={<CinematicAiVideoTricks />} />
+            <Route path="/guides/first-ai-song-suno-guide" element={<FirstAiSongSunoGuide />} />
+            <Route path="/guides/what-is-ai-app-builder" element={<WhatIsAiAppBuilder />} />
+            <Route path="/guides/top-5-free-ai-image-generators-2025" element={<Top5FreeAiImageGenerators2025 />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/examples" element={<ExamplesPage />} />
+            <Route path="/account" element={<AccountPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
